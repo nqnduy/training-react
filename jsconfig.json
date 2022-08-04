@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+        "baseUrl": ".",
+        "paths": {
+            "@/components/*": ["components/*"],
+            "@/dashkit/*": ["components/dashkit/*"],
+            "@/diginext/*": ["components/diginext/*"],
+            "@/website/*": ["components/website/*"],
+            "@/helpers/*": ["modules/helpers/*"],
+            "@/constants/*": ["modules/constants/*"],
+            "@/plugins/*": ["plugins/*"]
+        }
+    },
+    "exclude": [".git", ".npm", ".npm-tmp", "out", "out*", "node_modules", "**/out/*", "**/node_modules/*"]
+}

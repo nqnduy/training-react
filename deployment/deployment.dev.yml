@@ -1,0 +1,92 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: test-ns
+  labels:
+    project: react-training
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: react-training-ingress
+  namespace: test-ns
+  labels:
+    project: react-training
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/proxy-body-size: 50m
+    nginx.ingress.kubernetes.io/from-to-www-redirect: 'true'
+    nginx.ingress.kubernetes.io/affinity: cookie
+    nginx.ingress.kubernetes.io/session-cookie-name: route
+    nginx.ingress.kubernetes.io/session-cookie-hash: sha1
+spec:
+  rules:
+    - host: dev1.digitop.vn
+      http:
+        paths:
+          - path: /react-training
+            pathType: Prefix
+            backend:
+              service:
+                name: react-training-svc
+                port:
+                  number: 80
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: react-training-svc
+  namespace: test-ns
+  labels:
+    app: react-training
+    project: react-training
+spec:
+  ports:
+    - port: 80
+      targetPort: 3000
+  selector:
+    app: react-training
+  sessionAffinity: ClientIP
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: react-training
+  namespace: test-ns
+  labels:
+    project: react-training
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: react-training
+  template:
+    metadata:
+      labels:
+        app: react-training
+        project: react-training
+    spec:
+      containers:
+        - name: react-training
+          image: 'asia.gcr.io/top-group-k8s/react-training:2022-08-04-15-44-28'
+          ports:
+            - containerPort: 3000
+          resources: {}
+          env:
+            - name: NEXT_PUBLIC_ENV
+              value: development
+            - name: NEXT_PUBLIC_BASE_PATH
+              value: react-training
+            - name: NEXT_PUBLIC_API_BASE_PATH
+              value: 'https://dev1.digitop.vn/react-training/backend'
+            - name: NEXT_PUBLIC_CDN_BASE_PATH
+              value: 'https://google-cdn.digitop.vn/react-training/dev'
+            - name: NEXT_PUBLIC_BASE_URL
+              value: 'https://dev1.digitop.vn/react-training'
+            - name: IRON_SESSION_SECRET
+              value: SHPfrs9nuSdutAw2mn8trxCVG93YVGVR
+
+---

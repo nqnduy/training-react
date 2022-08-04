@@ -1,0 +1,163 @@
+import React, { useEffect, useRef, useState } from 'react';
+import { useRouter } from 'next/router';
+import { Switch, Tabs } from 'antd';
+//
+import BackButton from 'components/admin/BackButton';
+import LayoutPage from 'components/admin/LayoutPage';
+import AdminButton, { ButtonSize } from '@/dashkit/Buttons';
+import PageHeader from '@/dashkit/PageHeader';
+import { Input, ValidationType } from '@/diginext/form/Form';
+import Section from '@/diginext/containers/Section';
+import { HorizontalList, ListItem, ListItemSize } from '@/diginext/layout/ListLayout';
+import ApiCall from 'modules/ApiCall';
+import { showMessages, showSuccess, showError, checkPermission, showNotifications } from '@/helpers/helpers';
+import { getServerSideProps as TrackingUserSession } from 'plugins/next-session/admin';
+import { getObjectTrans } from '@/helpers/translation';
+import { locales, defaultLocale } from '@/constants/locale';
+const { TabPane } = Tabs;
+
+export const getServerSideProps = TrackingUserSession;
+
+const AdminJobDepartmentsEditPage = ({ user }) => {
+    const router = useRouter();
+    const formInputRef = useRef({});
+    const [formInput, setFormInput] = useState({});
+    const [myTimeout, setMyTimeout] = useState();
+    const { id } = router.query;
+
+    //Permissions
+    const canEdit = checkPermission(user, 'job_department_edit');
+    const canDetail = checkPermission(user, 'job_department_detail');
+
+    //Init load
+    useEffect(function () {
+        if (!canDetail) {
+            router.push('/admin');
+        } else {
+            fetchDetail();
+        }
+    }, []);
+
+    // methods
+    const fetchDetail = async function () {
+        let params = {
+            router,
+            path: `/api/v1/admin/job-departments/${id}`,
+            token: user.token,
+        };
+        let res = await ApiCall(params);
+        if (!res.status) return showError(res);
+        setFormInput(res.data);
+    };
+
+    // save
+    const saveHandler = function () {
+        if (!canEdit) return;
+        let msgs = [];
+        let currentFormInput = {
+            sortOrder: formInputRef.current.sortOrder.value,
+            active: formInput.active || false,
+            name: {
+                vi: formInputRef.current['name_vi'].value,
+                en: formInputRef.current['name_en'].value,
+            },
+        };
+
+        if (msgs.length) {
+            return showMessages(msgs);
+        }
+
+        clearTimeout(myTimeout);
+        let loginTimeout = setTimeout(async function () {
+            let params = {
+                router,
+                path: `/api/v1/admin/job-departments/${id}`,
+                token: user.token,
+                method: 'PUT',
+                data: currentFormInput,
+            };
+            let res = await ApiCall(params);
+            if (!res.status) return showError(res);
+            showSuccess(res);
+            router.push('/admin/recruitments/job-departments');
+        }, 1000);
+        setMyTimeout(loginTimeout);
+    };
+
+    const header = (
+        <PageHeader pretitle="admin" title="Department" button={<BackButton />} separator={true}>
+            Update
+        </PageHeader>
+    );
+
+    return (
+        <LayoutPage header={header} user={user}>
+            <Section borderBottom={true} style={{ padding: '2rem 0' }}>
+                <HorizontalList itemSize="stretch">
+                    <ListItem style={{ marginRight: '1rem' }}>
+                        <div className="form-group">
+                            <label style={{ marginRight: '15px' }}>Status</label>
+                            <Switch
+                                checked={formInput.active}
+                                onChange={() => {
+                                    setFormInput({
+                                        ...formInput,
+                                        active: !formInput.active,
+                                    });
+                                }}
+                            />
+                        </div>
+                    </ListItem>
+                </HorizontalList>
+
+                <HorizontalList itemSize="stretch">
+                    <ListItem style={{ marginRight: '1rem' }}>
+                        <Input
+                            ref={(el) => (formInputRef.current.sortOrder = el)}
+                            defaultValue={formInput.sortOrder}
+                            label="Sort Order"
+                            placeholder="0"
+                            maxLength="255"
+                            validateConditions={[
+                                { type: ValidationType.NOT_EMPTY, errMessage: 'Bắt buộc' },
+                                { type: ValidationType.NUMBERS, errMessage: 'Phải là số' },
+                            ]}
+                        />
+                    </ListItem>
+                </HorizontalList>
+
+                <Tabs defaultActiveKey={defaultLocale}>
+                    {Object.keys(locales)
+                        ? Object.keys(locales).map(function (locale) {
+                              return (
+                                  <TabPane forceRender={true} tab={locales[locale]} key={locale}>
+                                      <HorizontalList itemSize="stretch">
+                                          <ListItem style={{ marginRight: '1rem' }}>
+                                              <Input
+                                                  ref={(el) => (formInputRef.current[`name_${locale}`] = el)}
+                                                  defaultValue={getObjectTrans(formInput.name, locale)}
+                                                  label="Name"
+                                                  placeholder="Name"
+                                                  maxLength="255"
+                                              />
+                                          </ListItem>
+                                      </HorizontalList>
+                                  </TabPane>
+                              );
+                          })
+                        : ''}
+                </Tabs>
+
+                {canEdit ? (
+                    <AdminButton size={ButtonSize.LARGE} onClick={saveHandler} style={{ margin: '20px' }}>
+                        Save changes
+                    </AdminButton>
+                ) : (
+                    ''
+                )}
+            </Section>
+        </LayoutPage>
+    );
+};
+
+export default AdminJobDepartmentsEditPage;

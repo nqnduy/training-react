@@ -1,0 +1,22 @@
+{
+    "name": "next-optimizer",
+    "version": "1.0.0",
+    "main": "next.optimize.js",
+    "author": "Goon Nguyen",
+    "license": "MIT",
+    "scripts": {
+        "start": "node index.js",
+        "resize": "node resize.js"
+    },
+    "dependencies": {
+        "imagemin": "^7.0.1",
+        "imagemin-gifsicle": "^7.0.0",
+        "imagemin-mozjpeg": "^9.0.0",
+        "imagemin-optipng": "^8.0.0",
+        "imagemin-pngquant": "^9.0.0",
+        "imagemin-svgo": "^8.0.0",
+        "madge": "^3.12.0",
+        "mkdirp": "^1.0.4",
+        "sharp": "^0.25.4"
+    }
+}

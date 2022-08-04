@@ -1,0 +1,86 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+node_modules/
+optimizer/node_modules/
+optimizer/yarn.lock
+/.pnp
+.pnp.js
+
+# testing
+/coverage
+
+# next.js
+/out/
+out/
+.next
+.next/
+
+
+# production
+/build
+
+# System Files
+.DS_Store
+Thumbs.db
+*.Identifier
+
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.yarn
+.yarnrc
+.yarnrc.yml
+.yarn-integrity
+
+# Logs
+logs
+*.log
+
+
+# Optional npm cache directory
+.npm
+
+# Output of 'npm pack'
+*.tgz
+
+# Optional eslint cache
+.eslintcache
+
+# local env files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# IDEs and editors
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# Storage
+storage
+public/uploads
+
+/public.__image-compressed__
+/log
+
+# build & release framework
+gcloud-service-account.json
+
+.pnp.cjs
+.pnp.loader.mjs

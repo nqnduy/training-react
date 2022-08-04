@@ -1,0 +1,35 @@
+{
+  "isDebugging": false,
+  "framework": "diginext",
+  "git": {
+    "creator": "teexiii",
+    "repoURL": "https://bitbucket.org/digitopvn/react-training/src"
+  },
+  "env": "dev",
+  "shoudInherit": false,
+  "namespace": {
+    "dev": "test-ns",
+    "prod": "test-ns"
+  },
+  "ssl": true,
+  "username": "teexiii",
+  "code": "NPN68rPzr9CxKbNdNy",
+  "refreshToken": "UwPVHJAHFMD9GjYQx6",
+  "projectSlug": "react-training",
+  "remoteURL": "",
+  "projectName": "react training",
+  "diginext-cli": "1.0.3",
+  "domain": {
+    "staging": [],
+    "prod": []
+  },
+  "cdn": {
+    "dev": false,
+    "staging": false,
+    "prod": false
+  },
+  "pipeline": {
+    "prod": true
+  },
+  "version": "2.0.5"
+}

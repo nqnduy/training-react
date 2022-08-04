@@ -1,3 +1,6 @@
+import 'styles/tailwind.css';
+// import 'remixicon/fonts/remixicon.css'
+
 /**
  * !!!!!!!!! IMPORTANT !!!!!!!!!
  * DO NOT ADD GLOBAL CSS HERE

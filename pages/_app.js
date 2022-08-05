@@ -1,3 +1,5 @@
+import 'styles/tailwind.css';
+
 /**
  * !!!!!!!!! IMPORTANT !!!!!!!!!
  * DO NOT ADD GLOBAL CSS HERE

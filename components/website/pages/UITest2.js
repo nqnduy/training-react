@@ -39,17 +39,8 @@ const UITest2 = ({ ...props }) => {
             >
                 change state - Count: {count}
             </Button>
+
             <ParentTest2 />
-            {/* {console.log('data :>> ', data)}
-            {data.map((item, index) => {
-                return (
-                    <ParentTest2 key={index} text={index}>
-                        {item}
-                    </ParentTest2>
-                );
-            })} */}
-            {/* data */}
-            {/* {data ? <ParentTest2 /> : <></>} */}
         </>
     );
 };

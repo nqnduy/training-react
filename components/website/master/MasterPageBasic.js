@@ -9,7 +9,7 @@ import dynamic from 'next/dynamic';
 const Providers = dynamic(() => import('components/website/contexts/Providers'));
 const GlobalStyle = dynamic(() => import('styles/global'));
 
-const MasterPageBasic = ({ pageName, children }) => {
+const MasterPageBasic = ({ pageName, children, user }) => {
     const router = useRouter();
     const { device, breakpoint, orientation } = useNextResponsive();
 
@@ -46,7 +46,7 @@ const MasterPageBasic = ({ pageName, children }) => {
             <GlobalStyle />
 
             {/* - ADD MORE PROVIDER INSIDE THIS COMPONENT */}
-            <Providers>
+            <Providers user={user}>
                 <main className={[device, orientation, breakpoint].join(' ')}>{children}</main>
             </Providers>
         </>

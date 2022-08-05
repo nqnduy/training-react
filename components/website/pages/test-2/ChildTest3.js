@@ -2,7 +2,7 @@ import React, { memo, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useSpring, animated } from 'react-spring';
 
-const ChildTest2 = ({ index = 0, ...props }) => {
+const ChildTest3 = ({ index = 0, ...props }) => {
     const [stylesMain, setStylesMain] = useSpring(() => ({
         // config: { ... }
         // loop: { reverse: true },
@@ -26,6 +26,6 @@ const ChildTest2 = ({ index = 0, ...props }) => {
     );
 };
 
-ChildTest2.propTypes = {};
+ChildTest3.propTypes = {};
 
-export default ChildTest2;
+export default ChildTest3;

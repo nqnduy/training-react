@@ -1,5 +1,4 @@
 import 'styles/tailwind.css';
-// import 'remixicon/fonts/remixicon.css'
 
 /**
  * !!!!!!!!! IMPORTANT !!!!!!!!!

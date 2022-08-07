@@ -9,16 +9,15 @@ import dynamic from 'next/dynamic';
 const Providers = dynamic(() => import('components/website/contexts/Providers'));
 const GlobalStyle = dynamic(() => import('styles/global'));
 
-const MasterPageBasic = ({ pageName, children, user }) => {
+const MasterPageBasic = (props) => {
     const router = useRouter();
     const { device, breakpoint, orientation } = useNextResponsive();
-
     return (
         <>
             <NextSeo nofollow={CONFIG.environment != 'production'} noindex={CONFIG.environment != 'production'} />
             <Head>
                 <title>
-                    {CONFIG.site.title} | {pageName || 'Trang chủ'}
+                    {CONFIG.site.title} | {props.pageName || 'Trang chủ'}
                 </title>
 
                 <meta name="description" content={CONFIG.site.description}></meta>
@@ -46,8 +45,8 @@ const MasterPageBasic = ({ pageName, children, user }) => {
             <GlobalStyle />
 
             {/* - ADD MORE PROVIDER INSIDE THIS COMPONENT */}
-            <Providers user={user}>
-                <main className={[device, orientation, breakpoint].join(' ')}>{children}</main>
+            <Providers user={props.user}>
+                <main className={[device, orientation, breakpoint].join(' ')} {...props} />
             </Providers>
         </>
     );

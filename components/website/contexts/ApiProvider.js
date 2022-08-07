@@ -2,12 +2,12 @@ import ApiCall from 'modules/ApiCall';
 import { createContext, useContext } from 'react';
 import { showNotifications } from 'modules/helpers/helpers';
 import ObjectExtra from '@/plugins/utils/ObjectExtra';
-// import { useRouter } from 'next/router';
+import { useRouter } from 'next/router';
 
 export const ApiContext = createContext();
 
 const ApiProvider = (props) => {
-    // const router = useRouter();
+    const router = useRouter();
 
     const POST = async (options) => {
         const res = await call({
@@ -67,7 +67,7 @@ const ApiProvider = (props) => {
                 if (_isError) {
                     showNotifications(_msgs, _isError);
 
-                    // if (res.data?.statusCode == 401) router.push('/');
+                    if (res.data?.statusCode == 401) router.push('/');
                 } else {
                     if (showNotif) showNotifications(_msgs, _isError);
                 }

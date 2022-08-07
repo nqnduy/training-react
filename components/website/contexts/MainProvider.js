@@ -16,6 +16,10 @@ export default function MainProvider({ children }) {
     const { setData } = useStorage();
 
     const loginCustomer = async (params) => {
+        if (!params) {
+            console.log('something wrong, no data?');
+            return;
+        }
         //
 
         const res = await callLogin(params);

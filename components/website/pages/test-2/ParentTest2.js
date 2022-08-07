@@ -18,73 +18,21 @@ const ParentTest2 = (props) => {
         return () => {};
     }, [step]);
 
-    const main = useMemo(() => {
-        console.log('render main');
-        switch (step) {
-            case listStep[0]:
-                return (
-                    <div className="holder ">
-                        <ChildTest2 {...props} className="bg-red-400" />
-                    </div>
-                );
-
-            case listStep[1]:
-                return (
-                    <div className="holder ">
-                        <ChildTest3 {...props} className="bg-blue-400" />
-                    </div>
-                );
-
-            case listStep[2]:
-                return (
-                    <div className="holder ">
-                        <ChildTest2 {...props} className="bg-yellow-400" />
-                    </div>
-                );
-
-            case listStep[3]:
-                return (
-                    <div className="holder ">
-                        <ChildTest3 {...props} className="bg-green-400" />
-                    </div>
-                );
-
-            default:
-                break;
-        }
-    }, [step]);
-
-    const __main = (params) => {
-        console.log('render __main');
+    const renderMain = (params) => {
+        console.log('renderMain');
 
         switch (step) {
             case listStep[0]:
-                return (
-                    <div className="holder ">
-                        <ChildTest2 {...props} className="bg-red-400" />
-                    </div>
-                );
+                return <ChildTest2 {...props} className="bg-red-400 inline-flex" />;
 
             case listStep[1]:
-                return (
-                    <div className="holder ">
-                        <ChildTest3 {...props} className="bg-blue-400" />
-                    </div>
-                );
+                return <ChildTest3 {...props} className="bg-blue-400 inline-flex" />;
 
             case listStep[2]:
-                return (
-                    <div className="holder ">
-                        <ChildTest2 {...props} className="bg-yellow-400" />
-                    </div>
-                );
+                return <ChildTest2 {...props} className="bg-yellow-400 inline-flex" />;
 
             case listStep[3]:
-                return (
-                    <div className="holder ">
-                        <ChildTest3 {...props} className="bg-green-400" />
-                    </div>
-                );
+                return <ChildTest3 {...props} className="bg-green-400 inline-flex" />;
 
             default:
                 break;
@@ -103,9 +51,10 @@ const ParentTest2 = (props) => {
             </button>
 
             <div className="block step">
-                {step}
-                <Button
-                    className="block"
+                <span className="text-5xl"> {step}</span>
+
+                <button
+                    className="bg-red-500 text-white p-3 block"
                     onClick={() => {
                         let index = listStep.findIndex((x) => x == step);
                         if (index + 1 <= listStep.length - 1) index = index + 1;
@@ -114,11 +63,10 @@ const ParentTest2 = (props) => {
                     }}
                 >
                     Change Step
-                </Button>
+                </button>
             </div>
 
-            {/* {main} */}
-            {__main()}
+            {renderMain()}
         </>
     );
 };

@@ -32,13 +32,14 @@ const UITest2 = ({ ...props }) => {
 
     return (
         <>
-            <Button
+            <button
+                className="bg-yellow-200 text-black p-3 block"
                 onClick={(first) => {
                     setCount(count + 1);
                 }}
             >
-                change state - Count: {count}
-            </Button>
+                change state parent but red color - Count: {count}
+            </button>
 
             <ParentTest2 />
         </>

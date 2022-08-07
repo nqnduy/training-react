@@ -13,7 +13,6 @@ const ParentTest2 = (props) => {
 
     const [step, setStep] = useState(listStep[0]);
 
-    
     useEffect(() => {
         console.log('step has changed', step);
         return () => {};

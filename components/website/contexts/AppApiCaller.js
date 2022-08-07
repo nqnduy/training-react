@@ -20,6 +20,8 @@ const AppApiCaller = (props) => {
     //
 
     const callLogin = async (data, isShowMessage = true) => {
+        if (!data) return;
+
         const res = await POST({
             showNotif: isShowMessage,
             contentType: 'application/json',

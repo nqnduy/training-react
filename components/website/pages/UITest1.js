@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import ParentTest1 from './test-1/ParentTest1';
 
-const UITest1 = ({ ...props }) => {
+const UITest1 = (props) => {
     const [count, setCount] = useState(0);
 
     return (
@@ -13,7 +13,7 @@ const UITest1 = ({ ...props }) => {
                     setCount(count + 1);
                 }}
             >
-                change state parent - Count: {count}
+                change state parent 1 - Count: {count}
             </button>
 
             <ParentTest1 />

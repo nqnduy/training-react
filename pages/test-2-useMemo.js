@@ -6,7 +6,7 @@ import dynamic from 'next/dynamic';
     /* - CHANGE THIS COMPONENT FOR EACH OF PAGE */
 }
 const UITest2 = dynamic(() => import('components/website/pages/UITest2'));
-
+// pages/test-2-useMemo.js
 const template = (props) => {
     return (
         <>

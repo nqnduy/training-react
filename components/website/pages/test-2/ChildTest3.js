@@ -1,6 +1,7 @@
 import React, { memo, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useSpring, animated } from 'react-spring';
+import CardDetail from '@/components/website/pages/CardDetail';
 
 const ChildTest3 = ({ index = 0, ...props }) => {
     const [stylesMain, setStylesMain] = useSpring(() => ({
@@ -15,11 +16,7 @@ const ChildTest3 = ({ index = 0, ...props }) => {
             <animated.div style={stylesMain} {...props}>
                 {Array.from(Array(100)).map((item, index) => {
                     console.log('render index', index);
-                    return (
-                        <span key={index} className="inline-block w-5 h-5">
-                            {index}
-                        </span>
-                    );
+                    return <CardDetail data={index} key={index} />;
                 })}
             </animated.div>
         </>

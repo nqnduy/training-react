@@ -7,15 +7,12 @@ import ParentTest2 from './test-2/ParentTest2';
 import { Button } from 'antd';
 
 const UITest3 = ({ ...props }) => {
-    const { callLogin } = useAppApiCaller();
+    // const { callLogin } = useAppApiCaller();
     const { loginCustomer } = useMain();
 
-    useEffect(() => {
-        return () => {};
-    }, []);
-
     const onCLickLogin = (params) => {
-        loginCustomer();
+        // callLogin({ user: '1' });
+        loginCustomer({ user: '1' });
     };
 
     return (
